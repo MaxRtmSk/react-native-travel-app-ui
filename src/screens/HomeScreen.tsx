@@ -65,10 +65,19 @@ const style = StyleSheet.create({
     padding: 10,
     overflow: 'hidden',
     borderRadius: 10,
+  },
+  rmCardImage: {
+    width: width - 40,
+    height: 200,
+    marginRight: 20,
+    borderRadius: 10,
+    overflow: "hidden",
+    padding: 10,
   }
 })
 
 export const HomeScreen: FC = () => {
+
   const categoryIcons = [
     <MaterialIcons name="flight" size={25} color={COLORS.primary} />,
     <MaterialIcons name="beach-access" size={25} color={COLORS.primary} />,
@@ -111,6 +120,27 @@ export const HomeScreen: FC = () => {
     </View>
   </ImageBackground>);
 
+  const RecommendedCard = ({ place }: any) => (
+    <ImageBackground style={style.rmCardImage} source={place.image} >
+      <Text style={{ color: COLORS.white, fontSize: 22, marginTop: 10, }}>
+        {place.name}
+      </Text>
+      <View style={{ flex: 1, justifyContent: "space-between", alignItems: "flex-end" }}>
+        <View style={{ width: '100%', flexDirection: 'row', marginTop: 10 }}>
+          <View style={{ flexDirection: 'row' }}>
+            <MaterialIcons name="place" size={22} color={COLORS.white} />
+            <Text style={{ marginLeft: 5, color: COLORS.white }}>{place.location}</Text>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
+            <MaterialIcons name="star" size={22} color={COLORS.white} />
+            <Text style={{ marginLeft: 5, color: COLORS.white }}>5.0</Text>
+          </View>
+        </View>
+        <Text style={{ color: COLORS.white, fontSize: 13 }}>{place.details}</Text>
+      </View>
+    </ImageBackground>
+  )
+
 
   return (
     <SafeAreaProvider
@@ -147,6 +177,16 @@ export const HomeScreen: FC = () => {
             showsHorizontalScrollIndicator={false}
             data={places}
             renderItem={({ item }) => <Card place={item} />}
+          />
+          <Text style={style.sectionTitle}>Recommended</Text>
+          <FlatList
+            decelerationRate="fast"
+            snapToInterval={width - 20}
+            contentContainerStyle={{ paddingLeft: 20, paddingBottom: 20 }}
+            showsHorizontalScrollIndicator={false}
+            horizontal
+            data={places}
+            renderItem={({ item }) => <RecommendedCard place={item} />}
           />
         </View>
       </ScrollView>
