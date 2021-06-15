@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { StyleSheet, View, ImageBackground, StatusBar, Text, TouchableOpacity } from 'react-native';
 import { COLORS } from '../consts/colors';
 //Types
-import { ProfileScreenNavigationProp } from '../navigationType';
+import { OnBoardScreenNavigationProp } from '../types/navigationType';
 
 const style = StyleSheet.create({
   details: {
@@ -23,7 +23,7 @@ const style = StyleSheet.create({
 })
 
 interface Props {
-  navigation: ProfileScreenNavigationProp
+  navigation: OnBoardScreenNavigationProp
 }
 
 export const OnBoardScreen: FC<Props> = ({ navigation }) => {
