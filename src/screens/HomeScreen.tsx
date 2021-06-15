@@ -17,6 +17,8 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Card } from "../components/Card";
 import { RecommendedCard } from "../components/RecommendedCard";
 import { ListCategories } from "../components/ListCategories";
+//Types
+import { HomeScreenNavigationProp } from "../types/navigationType";
 
 const { width } = Dimensions.get("screen");
 
@@ -57,7 +59,11 @@ const style = StyleSheet.create({
 	},
 });
 
-export const HomeScreen: FC = () => {
+interface Props {
+	navigation: HomeScreenNavigationProp;
+}
+
+export const HomeScreen: FC<Props> = ({ navigation }) => {
 	return (
 		<SafeAreaProvider style={{ flex: 1, backgroundColor: COLORS.white }}>
 			<MyStatusBar backgroundColor={COLORS.primary} />
@@ -97,7 +103,14 @@ export const HomeScreen: FC = () => {
 						horizontal
 						showsHorizontalScrollIndicator={false}
 						data={places}
-						renderItem={({ item }) => <Card place={item} />}
+						renderItem={({ item }) => (
+							<Card
+								place={item}
+								clickCard={() => {
+									navigation.navigate("DetailScreen", item);
+								}}
+							/>
+						)}
 					/>
 					<Text style={style.sectionTitle}>Recommended</Text>
 					<FlatList

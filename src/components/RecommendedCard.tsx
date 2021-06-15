@@ -8,6 +8,8 @@ import {
 	StyleSheet,
 } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+//Types
+import { IPlace } from "../types/placesType";
 
 const { width } = Dimensions.get("screen");
 
@@ -23,7 +25,7 @@ const style = StyleSheet.create({
 });
 
 interface Props {
-	place: any;
+	place: IPlace;
 }
 
 export const RecommendedCard: FC<Props> = ({ place }) => (
