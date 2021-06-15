@@ -1,10 +1,13 @@
 import React, { FC } from 'react'
 import { COLORS } from '../consts/colors';
+import { places } from '../consts/places'
 //Componets
-import { StyleSheet, Text, View, ScrollView, TextInput } from 'react-native'
+import { Dimensions, StyleSheet, Text, View, ScrollView, TextInput, FlatList, ImageBackground } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { MyStatusBar } from '../components/MyStatusBar';
 import { MaterialIcons } from '@expo/vector-icons';
+
+const { width } = Dimensions.get('screen')
 
 const style = StyleSheet.create({
   header: {
@@ -54,6 +57,14 @@ const style = StyleSheet.create({
     marginVertical: 20,
     fontWeight: 'bold',
     fontSize: 20
+  },
+  cardImage: {
+    height: 220,
+    width: width / 2,
+    marginRight: 20,
+    padding: 10,
+    overflow: 'hidden',
+    borderRadius: 10,
   }
 })
 
@@ -63,7 +74,7 @@ export const HomeScreen: FC = () => {
     <MaterialIcons name="beach-access" size={25} color={COLORS.primary} />,
     <MaterialIcons name="near-me" size={25} color={COLORS.primary} />,
     <MaterialIcons name="place" size={25} color={COLORS.primary} />
-  ]
+  ];
 
   const ListCategories = () => (
     <View style={style.categoryContainer}>
@@ -73,7 +84,33 @@ export const HomeScreen: FC = () => {
         </View>
       )
       )}
-    </View>)
+    </View>);
+
+  const Card = ({ place }: any) =>
+  (<ImageBackground style={style.cardImage} source={place.image}>
+    <Text style={{
+      color: COLORS.white,
+      fontSize: 20,
+      fontWeight: 'bold',
+      marginTop: 10,
+    }}>{place.name}</Text>
+    <View style={{
+      flex: 1,
+      justifyContent: "space-between",
+      flexDirection: 'row',
+      alignItems: 'flex-end'
+    }}>
+      <View style={{ flexDirection: 'row' }}>
+        <MaterialIcons name="place" size={20} color={COLORS.white} />
+        <Text style={{ marginLeft: 5, color: COLORS.white }}>{place.location}</Text>
+      </View>
+      <View style={{ flexDirection: 'row' }}>
+        <MaterialIcons name="star" size={20} color={COLORS.white} />
+        <Text style={{ marginLeft: 5, color: COLORS.white }}>5.0</Text>
+      </View>
+    </View>
+  </ImageBackground>);
+
 
   return (
     <SafeAreaProvider
@@ -103,6 +140,15 @@ export const HomeScreen: FC = () => {
         </View>
         <ListCategories />
         <Text style={style.sectionTitle}>Places</Text>
+        <View>
+          <FlatList
+            contentContainerStyle={{ paddingLeft: 20 }}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={places}
+            renderItem={({ item }) => <Card place={item} />}
+          />
+        </View>
       </ScrollView>
     </SafeAreaProvider>
   )

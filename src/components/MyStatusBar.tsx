@@ -15,7 +15,6 @@ export const MyStatusBar: FC<Props> = ({ backgroundColor, barStyle = 'dark-conte
         animated={true}
         translucent
         backgroundColor={backgroundColor}
-        barStyle={barStyle}
       />
     </View>
   )
