@@ -8,7 +8,7 @@ import { OnBoardScreen } from './src/screens/OnBoardScreen';
 import { HomeScreen } from './src/screens/HomeScreen';
 import { DetailsScreen } from './src/screens/DetailsScreen';
 //Types
-import { RootStackParamList } from './src/navigationType'
+import { RootStackParamList } from './src/types/navigationType'
 
 const Stack = createStackNavigator<RootStackParamList>();
 
