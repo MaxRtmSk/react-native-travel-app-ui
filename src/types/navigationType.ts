@@ -1,6 +1,5 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-//Types
 import { IPlace } from "./placesType";
 
 export type RootStackParamList = {
@@ -11,16 +10,24 @@ export type RootStackParamList = {
 
 export type OnBoardScreenRouteProp = RouteProp<
 	RootStackParamList,
-	"HomeScreen"
+	"OnBoardScreen"
 >;
-
 export type OnBoardScreenNavigationProp = StackNavigationProp<
 	RootStackParamList,
 	"HomeScreen"
 >;
-export type HomeScreenRouteProp = RouteProp<RootStackParamList, "DetailScreen">;
 
+export type HomeScreenRouteProp = RouteProp<RootStackParamList, "HomeScreen">;
 export type HomeScreenNavigationProp = StackNavigationProp<
 	RootStackParamList,
 	"DetailScreen"
+>;
+
+export type DetailsScreenRouteProp = RouteProp<
+	RootStackParamList,
+	"DetailScreen"
+>;
+export type DetailsScreenNavigationProp = StackNavigationProp<
+	RootStackParamList,
+	"HomeScreen"
 >;

@@ -27,11 +27,11 @@ const style = StyleSheet.create({
 
 interface Props {
 	place: IPlace;
-	clickCard: () => void;
+	clickCard: (place: IPlace) => void;
 }
 
 export const Card: FC<Props> = ({ place, clickCard }) => (
-	<TouchableOpacity activeOpacity={0.8} onPress={clickCard}>
+	<TouchableOpacity activeOpacity={0.8} onPress={() => clickCard(place)}>
 		<ImageBackground style={style.cardImage} source={place.image}>
 			<Text
 				style={{

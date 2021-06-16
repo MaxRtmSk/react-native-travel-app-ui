@@ -19,6 +19,7 @@ import { RecommendedCard } from "../components/RecommendedCard";
 import { ListCategories } from "../components/ListCategories";
 //Types
 import { HomeScreenNavigationProp } from "../types/navigationType";
+import { IPlace } from "../types/placesType";
 
 const { width } = Dimensions.get("screen");
 
@@ -64,6 +65,10 @@ interface Props {
 }
 
 export const HomeScreen: FC<Props> = ({ navigation }) => {
+	const routeDetails = (place: IPlace): void => {
+		navigation.navigate("DetailScreen", place);
+	};
+
 	return (
 		<SafeAreaProvider style={{ flex: 1, backgroundColor: COLORS.white }}>
 			<MyStatusBar backgroundColor={COLORS.primary} />
@@ -75,53 +80,53 @@ export const HomeScreen: FC<Props> = ({ navigation }) => {
 					color={COLORS.white}
 				/>
 			</View>
-			<ScrollView showsVerticalScrollIndicator={false}>
-				<View
-					style={{
-						backgroundColor: COLORS.primary,
-						height: 120,
-						paddingHorizontal: 20,
-					}}
-				>
-					<View>
-						<Text style={style.headerTitle}>Explore the</Text>
-						<Text style={style.headerTitle}>beautiful places</Text>
-						<View style={style.inputContainer}>
-							<MaterialIcons name="search" size={28} />
-							<TextInput
-								placeholder="Search place"
-								style={{ color: COLORS.grey }}
-							/>
+			<ScrollView
+				showsVerticalScrollIndicator={false}
+				style={{ backgroundColor: COLORS.primary }}
+			>
+				<View style={{ backgroundColor: COLORS.white }}>
+					<View
+						style={{
+							backgroundColor: COLORS.primary,
+							height: 120,
+							paddingHorizontal: 20,
+						}}
+					>
+						<View>
+							<Text style={style.headerTitle}>Explore the</Text>
+							<Text style={style.headerTitle}>beautiful places</Text>
+							<View style={style.inputContainer}>
+								<MaterialIcons name="search" size={28} />
+								<TextInput
+									placeholder="Search place"
+									style={{ color: COLORS.grey }}
+								/>
+							</View>
 						</View>
 					</View>
-				</View>
-				<ListCategories />
-				<Text style={style.sectionTitle}>Places</Text>
-				<View>
-					<FlatList
-						contentContainerStyle={{ paddingLeft: 20 }}
-						horizontal
-						showsHorizontalScrollIndicator={false}
-						data={places}
-						renderItem={({ item }) => (
-							<Card
-								place={item}
-								clickCard={() => {
-									navigation.navigate("DetailScreen", item);
-								}}
-							/>
-						)}
-					/>
-					<Text style={style.sectionTitle}>Recommended</Text>
-					<FlatList
-						decelerationRate="fast"
-						snapToInterval={width - 20}
-						contentContainerStyle={{ paddingLeft: 20, paddingBottom: 20 }}
-						showsHorizontalScrollIndicator={false}
-						horizontal
-						data={places}
-						renderItem={({ item }) => <RecommendedCard place={item} />}
-					/>
+					<ListCategories />
+					<Text style={style.sectionTitle}>Places</Text>
+					<View>
+						<FlatList
+							contentContainerStyle={{ paddingLeft: 20 }}
+							horizontal
+							showsHorizontalScrollIndicator={false}
+							data={places}
+							renderItem={({ item }) => (
+								<Card place={item} clickCard={routeDetails} />
+							)}
+						/>
+						<Text style={style.sectionTitle}>Recommended</Text>
+						<FlatList
+							decelerationRate="fast"
+							snapToInterval={width - 20}
+							contentContainerStyle={{ paddingLeft: 20, paddingBottom: 20 }}
+							showsHorizontalScrollIndicator={false}
+							horizontal
+							data={places}
+							renderItem={({ item }) => <RecommendedCard place={item} />}
+						/>
+					</View>
 				</View>
 			</ScrollView>
 		</SafeAreaProvider>
